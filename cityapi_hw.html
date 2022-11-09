@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Location Name With API</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+</head>
+<body>
+    <input type="button" value="My Location" onclick="pos()">
+</body>
+</html>
+<script>
+    // Get your current position name with a unique API using Javascript and jQuery
+    // first function for position
+    function pos(){
+        if(navigator.geolocation)
+        {
+            navigator.geolocation.getCurrentPosition(my)
+        }
+    }
+    // 2nd function for exact location
+    function my(position){
+        var lat=position.coords.latitude;
+        var long=position.coords.longitude;
+        // unique API
+        var api="https://api.opencagedata.com/geocode/v1/json?q="+lat+","+long+"&key=87f70e732bbd44d984f351fc57d3e4cc";
+        $.get(api,function(data){
+            console.log(data);
+            // by going to console you can select different components to show
+            document.writeln(data.results[0].components.suburb+",")
+            document.writeln(data.results[0].components.neighbourhood+",")
+            document.writeln(data.results[0].components.city+",")
+            document.writeln(data.results[0].components.country)
+        })
+    }
+</script>
